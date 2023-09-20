@@ -21,13 +21,14 @@ if ($files.length -eq 0) {
 
 # List files that match pattern
 Write-Host "Files found with this pattern:"-ForegroundColor Yellow
+$files = $files | Sort-Object -Property Name
 forEach ($f in $files) {
     Write-Host $f.Name  
 }
 
 checkContinue
 
-$newDirectoryName = Read-Host "Name of new directory:"
+$newDirectoryName = Read-Host "Name of new directory"
 
 $pattern = Read-Host "What pattern in the filename do you want to preserve? (Powershell regex allowed)"
 
@@ -65,6 +66,6 @@ foreach ($file in $files) {
     }
 
     $file | Copy-Item -Destination ($newDirectoryNameFull + '\' + $fileNamePrefix + ' ' + $patternToWrite + $file.Extension)
-    Write-Host "Copied: $file.BaseName " -ForegroundColor Yellow
+    Write-Host "Copied: $file" -ForegroundColor Yellow
     $index++
 }
